@@ -34,8 +34,9 @@ public class NumberManager : MonoBehaviour
             int shoutLevel = detector.GetShoutedLevel();
             if (shoutLevel != 0 && !isShouted)
             {
-                Debug.Log("Shouted");
-                detector.isShoutBegin = true;
+                //Debug.Log("Shouted");
+                //detector.isShoutBegin = true;
+                soldiersToNumber.GetChild(4).Find("MMF_Number").GetComponent<MMF_Player>().PlayFeedbacks();
                 isShouted = true;
             }
         }
@@ -50,15 +51,11 @@ public class NumberManager : MonoBehaviour
         if (shoutLevel == 3) scaleFeedback.RemapCurveOne = 3;
         else
         {
+            Debug.Log("ENtered");
             StopCoroutine(Numbering());
             scaleFeedback.RemapCurveOne = 2;
         }
         mmf_Number.PlayFeedbacks();
-
-        if (isPlayerGap)
-        {
-
-        }
     }
 
     public void RearrangeSoldierHorizontally()
@@ -89,8 +86,6 @@ public class NumberManager : MonoBehaviour
 
     IEnumerator Numbering()
     {
-
-
         for (int i = 0; i < soldiersToNumber.childCount; i++)
         {
             MMF_Player mmf_Number = soldiersToNumber.GetChild(i).Find("MMF_Number").GetComponent<MMF_Player>();
@@ -103,5 +98,10 @@ public class NumberManager : MonoBehaviour
             yield return new WaitForSeconds(numberingDelay);
             isPlayerGap = false;
         }
+
+        yield return new WaitForSeconds(1);
+
+        if (isShouted) FindObjectOfType<GameEnd>().GameWin(0);
+        else FindObjectOfType<GameEnd>().GameLose(3);
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [RequireComponent(typeof(AudioSource))]
 public class VoiceReactor : MonoBehaviour
@@ -8,15 +9,18 @@ public class VoiceReactor : MonoBehaviour
     private M_VoiceDetection detector;
     public float loudnessSensibility = 100;
     public float threshold_Default = 0.1f;
+    public Action Screaming;
 
-    protected void InitializeReactor()
+    public void InitializeReactor()
     {
         detector = FindObjectOfType<M_VoiceDetection>();
+        //Screaming += FindObjectOfType<ScreamingAnimController>().Talk;
     }
 
-    protected float GetLoudness()
+    public float GetLoudness()
     {
         float loudness = detector.GetLoudnessFromMicrophone() * loudnessSensibility;
+        //Screaming(loudness);
         return loudness;
     }
 }

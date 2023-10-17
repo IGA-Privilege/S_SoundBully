@@ -29,12 +29,13 @@ public class Detector_Number : VoiceReactor
         if (tempLoudness < threshold_Default) tempLoudness = 0;
         if (tempLoudness != 0) {
             loudnessLevel = Mathf.RoundToInt(tempLoudness);
-            loudnessLevel = loudnessLevel switch
-            {
-                < 30 => 1,
-                >= 30 and < 70 => 2,
-                _ => 3
-            };
+            loudnessLevel = 3;
+            //loudnessLevel = loudnessLevel switch
+            //{
+            //    < 30 => 1,
+            //    >= 30 and < 70 => 2,
+            //    _ => 3
+            //};
         }
         return loudnessLevel;
     }
@@ -49,12 +50,13 @@ public class Detector_Number : VoiceReactor
             Debug.Log("T: " + totalLoudness);
             int intLoudness = Mathf.RoundToInt(totalLoudness);
             Debug.Log("I: " + intLoudness);
-            intLoudness = intLoudness switch
-            {
-                < 50 => 1,
-                >= 50 and < 80 => 2,
-                _ => 3
-            };
+            intLoudness = 3;
+            //intLoudness = intLoudness switch
+            //{
+            //    < 50 => 1,
+            //    >= 50 and < 80 => 2,
+            //    _ => 3
+            //};
             Debug.Log("IA: " + intLoudness);
             isShouting = false;
             FindObjectOfType<NumberManager>().SetShoutLevel(intLoudness);

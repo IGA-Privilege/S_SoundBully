@@ -12,17 +12,29 @@ public class M_Environment : MonoBehaviour
     public float moveSpeed;
     public string layerName_Environment;
 
+    public GameObject pre_Wire;
+    [SerializeField] private Transform inScreenWire;
+    [SerializeField] private Transform outScreenWire;
+    public float wireMoveSpeed;
+
     private void Start()
     {
-        //M_Global.Instance.GameStart += () => isEnGen = true;
-        //M_HeartJelly.Instance.SwitchWorldView += StoneAppearanceChange;
-
-        StartCoroutine(SpawnElements());
+        //StartCoroutine(SpawnElements());
     }
 
-    void Update()
+    private void Update()
     {
-        //if (isEnGen) GenerateNewElements();
+        inScreenWire.position += Vector3.right * Time.deltaTime * wireMoveSpeed;
+        outScreenWire.position += Vector3.right * Time.deltaTime * wireMoveSpeed;
+
+        if (inScreenWire.position.x >= 19.19f)
+        {
+            Destroy(inScreenWire.gameObject);
+            inScreenWire = outScreenWire;
+            GameObject go = Instantiate(pre_Wire,new Vector3(-19.19f,0.6f,0),Quaternion.identity);
+            go.transform.localScale = new Vector3(-inScreenWire.localScale.x, 1, 1);
+            outScreenWire = go.transform;
+        }
     }
 
     void GenerateNewElements()
@@ -54,9 +66,6 @@ public class M_Environment : MonoBehaviour
 
                 newTrans.DOMoveX(pos_End.x, moveSpeed).OnComplete(() => Destroy(newTrans.gameObject));
 
-                //Transform newTrans = Instantiate(weeds[random], pos_Start, Quaternion.identity).transform;
-        
-                //newTrans.DOMoveX(pos_End.x, moveSpeed).OnComplete(() => Destroy(newTrans.gameObject));
                 yield return new WaitForSeconds(Random.Range(0.1f, 0.3f));
             }
         }
@@ -67,15 +76,6 @@ public class M_Environment : MonoBehaviour
         while (true)
         {
             GenerateNewElements();
-            //int random = Random.Range(0, elements.Length);
-            //bool isFlip = Random.Range(0, 10) > 4;
-            //Transform newTrans = new GameObject("New Stone").AddComponent<SpriteRenderer>().transform;
-            //newTrans.GetComponent<SpriteRenderer>().sprite = elements[random];
-            //newTrans.position = pos_Start;
-            //newTrans.localScale = isFlip ? new Vector3(1, 1, 1) : new Vector3(-1, 1, 1);
-            //newTrans.GetComponent<SpriteRenderer>().sortingLayerName = layerName_Environment;
-            //newTrans.DOMoveX(pos_End.x, moveSpeed).OnComplete(() => Destroy(newTrans.gameObject));
-
             float delay = Random.Range(2f, 4f);
             yield return new WaitForSeconds(delay);
         }
@@ -92,11 +92,5 @@ public class M_Environment : MonoBehaviour
         newTrans.localScale = isFlip ? new Vector3(1, 1, 1) : new Vector3(-1, 1, 1);
         newTrans.GetComponent<SpriteRenderer>().sortingLayerName = layerName_Environment;
         newTrans.DOMoveX(pos_End.x, moveSpeed).OnComplete(() => Destroy(newTrans.gameObject));
-
-        //void RemoveStoneAndDestroy(GameObject stoneObj)
-        //{
-        //    inSceneStones.Remove(stoneObj);
-        //    Destroy(stoneObj);
-        //}
     }
 }

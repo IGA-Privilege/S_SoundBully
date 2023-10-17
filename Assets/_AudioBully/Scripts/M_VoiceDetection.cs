@@ -7,7 +7,7 @@ public class M_VoiceDetection : MonoBehaviour
     public int sampleWindow = 64;
     private AudioClip microphoneClip;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         MicrophoneToAudioClip();
     }

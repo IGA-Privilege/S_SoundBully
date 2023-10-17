@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_AudioBully/Scenes/SampleScene.unity
+    path: Assets/_AudioBully/Scenes/Start.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/_AudioBully/Scenes/Playground.unity
+    guid: 3bcfa495e54652246ac8f2b40574dba0
+  - enabled: 1
+    path: Assets/_AudioBully/Scenes/PushUp.unity
+    guid: 8068cea48b235624b968eda0a6f964ea
+  - enabled: 1
+    path: Assets/_AudioBully/Scenes/Number.unity
+    guid: eea35aa842e57b248ba0660de6a214e8
   m_configObjects: {}
